@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="kk">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Әдеби тест</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<section>
+
+<h2>Әдеби тест</h2>
+
+<div class="quiz">
+
+<p id="question"></p>
+
+<div id="answers"></div>
+
+<p id="result"></p>
+
+<button onclick="nextQuestion()" id="nextBtn" style="display:none;">Келесі</button>
+
+</div>
+
+</section>
+
+<script>
+
+const quiz=[
+
+{question:"Символ деген не?",answers:["Астарлы мағына","Жай сөз","Кейіпкер"],correct:0},
+{question:"Теңіз символы нені білдіреді?",answers:["Өмір","Қала","Үй"],correct:0},
+{question:"Балық символы нені білдіреді?",answers:["Мақсат","Демалыс","Кездейсоқтық"],correct:0}
+
+]
+
+quiz.sort(()=>0.5-Math.random())
+
+let current=0
+let score=0
+
+function loadQuestion(){
+
+let q=quiz[current]
+
+document.getElementById("question").innerText=q.question
+
+let html=""
+
+q.answers.forEach((a,i)=>{
+
+html+=`<button onclick="check(${i})">${a}</button>`
+
+})
+
+document.getElementById("answers").innerHTML=html
+
+}
+
+function check(answer){
+
+let q=quiz[current]
+
+if(answer===q.correct){
+document.getElementById("result").innerText="Дұрыс!"
+score++
+}else{
+document.getElementById("result").innerText="Қате"
+}
+
+document.getElementById("nextBtn").style.display="block"
+
+}
+
+function nextQuestion(){
+
+current++
+
+if(current<quiz.length){
+loadQuestion()
+}else{
+document.getElementById("question").innerText="Тест аяқталды"
+document.getElementById("result").innerText="Нәтиже: "+score
+document.getElementById("answers").innerHTML=""
+}
+
+}
+
+loadQuestion()
+
+</script>
+
+</body>
+</html>
